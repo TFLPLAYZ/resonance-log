@@ -1,0 +1,58 @@
+/* =================================================================
+   CRITICAL FIX FOR SELECT DROPDOWNS NOT WORKING
+   =================================================================
+   
+   Add this CSS to the END of your style.css file on your server.
+   This will fix the issue where select dropdowns cannot be clicked.
+   
+   THE PROBLEM: The sidebar has z-index: 1000 even when hidden,
+   which blocks clicks on form elements.
+   
+   THE SOLUTION: Force select elements to have higher z-index and
+   ensure sidebar doesn't block clicks when closed.
+   ================================================================= */
+
+/* Force all select elements to be clickable */
+select,
+.form-group select,
+form select,
+select[name="dorm"],
+select[name="kelas"],
+select[name="jawatan"] {
+    position: relative !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    -webkit-appearance: menulist !important;
+    -moz-appearance: menulist !important;
+    appearance: menulist !important;
+}
+
+/* Ensure main content is above hidden sidebar */
+.main-content {
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+/* Fix sidebar blocking clicks on mobile */
+@media (max-width: 767px) {
+
+    /* When sidebar is closed, it should not block clicks */
+    .sidebar:not(.active) {
+        pointer-events: none !important;
+        z-index: 1 !important;
+    }
+
+    /* When sidebar is open, it should work normally */
+    .sidebar.active {
+        pointer-events: auto !important;
+        z-index: 1000 !important;
+    }
+}
+
+/* Additional fix for desktop */
+@media (min-width: 768px) {
+    .sidebar {
+        pointer-events: auto !important;
+    }
+}

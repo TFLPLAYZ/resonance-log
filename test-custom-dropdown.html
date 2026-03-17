@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Dropdown Test</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            background: #f4f7f6;
+        }
+
+        /* Custom Dropdown Styling */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+            width: 300px;
+        }
+
+        .custom-select {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .custom-select__trigger {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #3b3b3b;
+            height: 50px;
+            line-height: 50px;
+            background: #ffffff;
+            cursor: pointer;
+            border: 1px solid #dde2e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .custom-select-options {
+            position: absolute;
+            display: block;
+            top: 100%;
+            left: 0;
+            right: 0;
+            border: 1px solid #dde2e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: #ffffff;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 2;
+            margin-top: 10px;
+        }
+
+        .custom-select.open .custom-select-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+
+        .custom-option {
+            position: relative;
+            display: block;
+            padding: 0 22px;
+            font-size: 16px;
+            font-weight: 300;
+            color: #3b3b3b;
+            line-height: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .custom-option:hover {
+            cursor: pointer;
+            background-color: #00A9FF;
+            color: white;
+        }
+
+        .custom-option.selected {
+            color: #ffffff;
+            background-color: #34495e;
+        }
+
+        .arrow {
+            position: relative;
+            height: 10px;
+            width: 10px;
+        }
+
+        .arrow::before,
+        .arrow::after {
+            content: "";
+            position: absolute;
+            bottom: 0px;
+            width: 0.15rem;
+            height: 100%;
+            transition: all 0.5s;
+        }
+
+        .arrow::before {
+            left: -2.5px;
+            transform: rotate(-45deg);
+            background-color: #394a6d;
+        }
+
+        .arrow::after {
+            left: 2.5px;
+            transform: rotate(45deg);
+            background-color: #394a6d;
+        }
+
+        .open .arrow::before {
+            left: -2.5px;
+            transform: rotate(45deg);
+        }
+
+        .open .arrow::after {
+            left: 2.5px;
+            transform: rotate(-45deg);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #00A9FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Custom "Fake" Dropdown Test</h1>
+    <p>This mimics a dropdown using DIV and JavaScript. It does NOT use the native &lt;select&gt; tag.</p>
+
+    <div class="custom-select-wrapper">
+        <div class="custom-select">
+            <div class="custom-select__trigger"><span>Pilih Dorm</span>
+                <div class="arrow"></div>
+            </div>
+            <div class="custom-select-options">
+                <span class="custom-option selected" data-value="default">Pilih Dorm</span>
+                <span class="custom-option" data-value="G1">G1</span>
+                <span class="custom-option" data-value="G2">G2</span>
+                <span class="custom-option" data-value="G3">G3</span>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="alert('Button Clicked!')">Test Button (Click Me)</button>
+    <p id="result" style="margin-top: 20px; font-weight: bold;"></p>
+
+    <script>
+        document.querySelector('.custom-select-wrapper').addEventListener('click', function () {
+            this.querySelector('.custom-select').classList.toggle('open');
+        });
+
+        for (const option of document.querySelectorAll(".custom-option")) {
+            option.addEventListener('click', function () {
+                if (!this.classList.contains('selected')) {
+                    this.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
+                    this.classList.add('selected');
+                    this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent;
+
+                    const val = this.getAttribute('data-value');
+                    document.getElementById('result').textContent = "Selected Value: " + val;
+                    document.getElementById('result').style.color = 'green';
+                }
+            });
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function (e) {
+            const select = document.querySelector('.custom-select');
+            if (!select.contains(e.target)) {
+                select.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+
+</html>

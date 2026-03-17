@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Minimal Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 20px;
+            font-family: sans-serif;
+        }
+
+        select {
+            font-size: 20px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Minimal Select Test</h1>
+    <p>This page has NO external CSS or JS.</p>
+
+    <label>Test Dropdown:</label>
+    <select id="minSelect">
+        <option>Option 1</option>
+        <option>Option 2</option>
+        <option>Option 3</option>
+    </select>
+
+    <script>
+        document.getElementById('minSelect').addEventListener('change', function () {
+            alert('You selected: ' + this.value);
+        });
+        document.getElementById('minSelect').addEventListener('click', function () {
+            console.log('Clicked');
+        });
+    </script>
+</body>
+
+</html>

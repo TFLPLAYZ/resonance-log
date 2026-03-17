@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Dropdown Test - Resonance Log</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <style>
+        body {
+            padding: 50px;
+            font-family: Arial, sans-serif;
+        }
+
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #00A9FF;
+        }
+
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        /* CRITICAL FIX */
+        select {
+            position: relative !important;
+            z-index: 9999 !important;
+            pointer-events: auto !important;
+            cursor: pointer !important;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Select Dropdown Test Page</h1>
+    <p>This page tests if select dropdowns are working correctly.</p>
+
+    <div class="test-section">
+        <h2>Test 1: Basic Select (No CSS)</h2>
+        <select id="test1" style="padding: 10px; font-size: 16px;">
+            <option value="">Pilih Dorm</option>
+            <option value="G1">G1</option>
+            <option value="G2">G2</option>
+            <option value="G3">G3</option>
+        </select>
+        <div class="status" id="status1">Status: Not selected</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Select with Form Group</h2>
+        <div class="form-group">
+            <label for="test2">Dorm:</label>
+            <select id="test2">
+                <option value="">Pilih Dorm</option>
+                <option value="G1">G1</option>
+                <option value="G2">G2</option>
+                <option value="G3">G3</option>
+            </select>
+        </div>
+        <div class="status" id="status2">Status: Not selected</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Select with Inline Styles</h2>
+        <select id="test3"
+            style="position: relative !important; z-index: 9999 !important; pointer-events: auto !important; cursor: pointer !important; padding: 10px; font-size: 16px;">
+            <option value="">Pilih Dorm</option>
+            <option value="G1">G1</option>
+            <option value="G2">G2</option>
+            <option value="G3">G3</option>
+        </select>
+        <div class="status" id="status3">Status: Not selected</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 4: Click Detection</h2>
+        <select id="test4" style="padding: 10px; font-size: 16px;">
+            <option value="">Pilih Dorm</option>
+            <option value="G1">G1</option>
+            <option value="G2">G2</option>
+            <option value="G3">G3</option>
+        </select>
+        <div class="status" id="status4">
+            <p>Clicks detected: <span id="clickCount">0</span></p>
+            <p>Focus detected: <span id="focusCount">0</span></p>
+            <p>Change detected: <span id="changeCount">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Test 1
+        document.getElementById('test1').addEventListener('change', function () {
+            document.getElementById('status1').textContent = 'Status: Selected ' + this.value;
+            document.getElementById('status1').style.background = '#d4edda';
+        });
+
+        // Test 2
+        document.getElementById('test2').addEventListener('change', function () {
+            document.getElementById('status2').textContent = 'Status: Selected ' + this.value;
+            document.getElementById('status2').style.background = '#d4edda';
+        });
+
+        // Test 3
+        document.getElementById('test3').addEventListener('change', function () {
+            document.getElementById('status3').textContent = 'Status: Selected ' + this.value;
+            document.getElementById('status3').style.background = '#d4edda';
+        });
+
+        // Test 4 - Detailed tracking
+        let clickCount = 0;
+        let focusCount = 0;
+        let changeCount = 0;
+
+        const test4 = document.getElementById('test4');
+
+        test4.addEventListener('click', function (e) {
+            clickCount++;
+            document.getElementById('clickCount').textContent = clickCount;
+            console.log('Select clicked!', e);
+        });
+
+        test4.addEventListener('focus', function (e) {
+            focusCount++;
+            document.getElementById('focusCount').textContent = focusCount;
+            console.log('Select focused!', e);
+        });
+
+        test4.addEventListener('change', function (e) {
+            changeCount++;
+            document.getElementById('changeCount').textContent = changeCount;
+            console.log('Select changed!', this.value);
+        });
+
+        test4.addEventListener('mousedown', function (e) {
+            console.log('Mousedown on select!', e);
+        });
+
+        test4.addEventListener('mouseup', function (e) {
+            console.log('Mouseup on select!', e);
+        });
+
+        // Global click detector
+        document.addEventListener('click', function (e) {
+            console.log('Global click detected on:', e.target.tagName, e.target);
+        });
+    </script>
+</body>
+
+</html>

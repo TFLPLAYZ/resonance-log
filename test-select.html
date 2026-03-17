@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test Select Dropdowns</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Select Dropdowns</h1>
+    <p>If you can select options below, the issue is with the main page. If not, it's a browser/server issue.</p>
+    
+    <div class="form-group">
+        <label for="test-dorm">Test Dorm:</label>
+        <select id="test-dorm" onchange="showSelection()">
+            <option value="">Pilih Dorm</option>
+            <option value="G1">G1</option>
+            <option value="G2">G2</option>
+            <option value="G3">G3</option>
+            <option value="G4">G4</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="test-kelas">Test Kelas:</label>
+        <select id="test-kelas" onchange="showSelection()">
+            <option value="">Pilih Kelas</option>
+            <option value="IPD">IPD</option>
+            <option value="ISK">ISK</option>
+            <option value="MTK 1">MTK 1</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="test-jawatan">Test Jawatan:</label>
+        <select id="test-jawatan" onchange="showSelection()">
+            <option value="">Pilih Jawatan</option>
+            <option value="Pelajar">Pelajar</option>
+            <option value="AJK">AJK</option>
+        </select>
+    </div>
+    
+    <div class="result" id="result">
+        <strong>Selected values will appear here...</strong>
+    </div>
+    
+    <script>
+        function showSelection() {
+            const dorm = document.getElementById('test-dorm').value;
+            const kelas = document.getElementById('test-kelas').value;
+            const jawatan = document.getElementById('test-jawatan').value;
+            
+            document.getElementById('result').innerHTML = `
+                <strong>Current Selections:</strong><br>
+                Dorm: ${dorm || 'Not selected'}<br>
+                Kelas: ${kelas || 'Not selected'}<br>
+                Jawatan: ${jawatan || 'Not selected'}
+            `;
+        }
+        
+        // Log clicks for debugging
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('click', function() {
+                console.log('Select clicked:', this.id);
+            });
+            select.addEventListener('mousedown', function() {
+                console.log('Select mousedown:', this.id);
+            });
+        });
+    </script>
+</body>
+</html>
