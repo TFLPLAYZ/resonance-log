@@ -1,0 +1,439 @@
+/* ========================================
+   RESPONSIVE DESIGN FRAMEWORK
+   Resonance Log System
+   ======================================== */
+
+/* ========================================
+   CSS VARIABLES (Design Tokens)
+   ======================================== */
+:root {
+    /* Colors */
+    --primary-color: #00A9FF;
+    --secondary-color: #34495e;
+    --background-color: #f4f7f6;
+    --sidebar-bg: #2c3e50;
+    --text-color-light: #ecf0f1;
+    --text-color-dark: #2c3e50;
+    --border-color: #dde2e6;
+    --card-bg: #ffffff;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --info-color: #3498db;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* Breakpoints (for reference in JS) */
+    --breakpoint-mobile: 768px;
+    --breakpoint-tablet: 1024px;
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+/* Hide on mobile */
+@media (max-width: 767px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Hide on tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .hide-tablet {
+        display: none !important;
+    }
+}
+
+/* Hide on desktop */
+@media (min-width: 1024px) {
+    .hide-desktop {
+        display: none !important;
+    }
+}
+
+/* Show only on mobile */
+.show-mobile {
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    .show-mobile {
+        display: block !important;
+    }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE (320px - 767px)
+   ======================================== */
+@media (max-width: 767px) {
+
+    /* Sidebar - Overlay on mobile */
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        height: 100vh;
+        width: 260px;
+        z-index: 1;
+        pointer-events: none;
+        transition: left var(--transition-normal);
+    }
+
+    .sidebar.active {
+        left: 0;
+        z-index: 1000;
+        pointer-events: auto;
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* Main content - Full width on mobile */
+    .main-content {
+        margin-left: 0 !important;
+        padding: 15px !important;
+        width: 100%;
+        overflow-x: hidden;
+        /* Prevent content overflow */
+    }
+
+    /* Header - Mobile friendly */
+    .header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px !important;
+    }
+
+    .header h1 {
+        font-size: 20px !important;
+    }
+
+    /* Hamburger menu button */
+    .menu-toggle {
+        display: block !important;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1001;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    /* Cards - Full width on mobile */
+    .card {
+        padding: 15px !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Tables - Horizontal scroll */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 600px;
+        font-size: 14px;
+    }
+
+    /* Forms - Stacked layout */
+    .form-row {
+        flex-direction: column !important;
+    }
+
+    .form-group {
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+        /* Prevent zoom on iOS */
+    }
+
+    /* Buttons - Full width on mobile */
+    .btn-mobile-full {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Touch targets - Minimum 44px */
+    button,
+    .btn,
+    a.btn {
+        min-height: 44px;
+        padding: 12px 20px;
+    }
+
+    /* Grid - Single column */
+    .grid,
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    /* Stats cards */
+    .stat-card {
+        padding: 15px !important;
+    }
+
+    /* Fingerprint scanner */
+    .fingerprint-scanner {
+        padding: 30px 15px !important;
+        min-height: 300px !important;
+    }
+
+    .fingerprint-icon {
+        font-size: 80px !important;
+    }
+}
+
+/* ========================================
+   TABLET RESPONSIVE (768px - 1023px)
+   ======================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    /* Sidebar - Collapsible */
+    .sidebar {
+        width: 220px;
+    }
+
+    .sidebar.collapsed {
+        width: 60px;
+    }
+
+    .sidebar.collapsed .sidebar-nav a span {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 220px;
+        padding: 20px;
+    }
+
+    .sidebar.collapsed~.main-content {
+        margin-left: 60px;
+    }
+
+    /* Header */
+    .header h1 {
+        font-size: 22px;
+    }
+
+    /* Grid - 2 columns */
+    .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Tables - Responsive */
+    table {
+        font-size: 14px;
+    }
+
+    /* Cards */
+    .card {
+        padding: 20px;
+    }
+}
+
+/* ========================================
+   DESKTOP RESPONSIVE (1024px+)
+   ======================================== */
+@media (min-width: 1024px) {
+
+    /* Hover effects only on desktop */
+    .btn:hover,
+    .card:hover {
+        transform: translateY(-2px);
+    }
+
+    /* Tooltips */
+    [data-tooltip]:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        background: var(--secondary-color);
+        color: white;
+        padding: 5px 10px;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        white-space: nowrap;
+        z-index: 1000;
+    }
+}
+
+/* ========================================
+   COMMON RESPONSIVE COMPONENTS
+   ======================================== */
+
+/* Responsive Images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive Videos */
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive Iframes */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Text */
+@media (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    body {
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    h3 {
+        font-size: 19px;
+    }
+}
+
+@media (min-width: 1024px) {
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus states */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Skip to main content */
+.skip-to-main {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+}
+
+.skip-to-main:focus {
+    left: 0;
+    top: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 10px;
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+
+    .sidebar,
+    .header,
+    .btn,
+    .no-print {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+
+    * {
+        color: black !important;
+        background: white !important;
+    }
+}
+
+/* ========================================
+   LANDSCAPE ORIENTATION
+   ======================================== */
+@media (max-width: 767px) and (orientation: landscape) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .fingerprint-scanner {
+        min-height: 250px !important;
+    }
+}

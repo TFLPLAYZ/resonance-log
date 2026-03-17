@@ -1,0 +1,133 @@
+/* Custom Dropdown Styling */
+.custom-select-wrapper {
+    position: relative;
+    user-select: none;
+    width: 100%;
+}
+
+.custom-select {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-select__trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #3b3b3b;
+    /* Match existing text color */
+    height: 45px;
+    /* Match standard input height */
+    line-height: requires;
+    background: #ffffff;
+    cursor: pointer;
+    border: 1px solid #dde2e6;
+    /* Match var(--border-color) */
+    border-radius: 8px;
+    /* Match var(--radius-md) */
+    transition: all 0.3s;
+}
+
+.custom-select__trigger:hover {
+    border-color: #00A9FF;
+    /* Match var(--primary-color) */
+}
+
+.custom-select.open .custom-select__trigger {
+    border-color: #00A9FF;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.custom-select-options {
+    position: absolute;
+    display: block;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #dde2e6;
+    border-top: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    transition: all 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 99999;
+    /* Super high z-index to stay on top */
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.custom-select.open .custom-select-options {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.custom-option {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #3b3b3b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.custom-option:hover {
+    background-color: #f4f7f6;
+    /* Light gray hover */
+    color: #00A9FF;
+}
+
+.custom-option.selected {
+    color: #ffffff;
+    background-color: #00A9FF;
+    /* Primary color */
+}
+
+.arrow {
+    position: relative;
+    height: 10px;
+    width: 10px;
+}
+
+.arrow::before,
+.arrow::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    width: 0.15rem;
+    height: 100%;
+    transition: all 0.3s;
+    background-color: #888;
+}
+
+.arrow::before {
+    left: -2.5px;
+    transform: rotate(-45deg);
+}
+
+.arrow::after {
+    left: 2.5px;
+    transform: rotate(45deg);
+}
+
+.custom-select.open .arrow::before {
+    left: -2.5px;
+    transform: rotate(45deg);
+}
+
+.custom-select.open .arrow::after {
+    left: 2.5px;
+    transform: rotate(-45deg);
+}
